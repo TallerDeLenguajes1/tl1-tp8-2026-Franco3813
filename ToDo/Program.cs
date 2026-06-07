@@ -4,7 +4,7 @@ List<Tarea> tareasPendiente = new List<Tarea>();
 List<Tarea> tareasRealizada = new List<Tarea>();
 
 Random aux = new Random();
-int a = aux.Next(10);
+int a = aux.Next(1,11);
 Tarea[] tareas = new Tarea[a];
 int c = 1000;
 string dato;
@@ -20,7 +20,7 @@ for (int i = 0; i < a; i++)
 
     tareasPendiente.Add(tareas[i]);
 }
-Console.WriteLine("Cantidad de Tareas: " + (a + 1));
+Console.WriteLine("Cantidad de Tareas: " +a);
 
 string x;
 do
@@ -42,15 +42,20 @@ do
             Tarea tareaBuscada = tareasPendiente.Where(p => p.TareaID == id).Single();
             tareasPendiente.Remove(tareaBuscada);
             tareasRealizada.Add(tareaBuscada);
-            //tareasRealizada.Add(tareasPendiente[id - 1000]);
-            //tareasPendiente.RemoveAt(id - 1000);
         }
     }
     else if (x == "3")
     {
         Console.WriteLine("Ingrese la descripcion de la tarea:");
         dato = Console.ReadLine();
+        do{
+            if (dato == ""){
+                Console.WriteLine("Descripcion invalida por favor ingrese la descripcion de la tarea:");
+                dato = Console.ReadLine();
+            }
+        } while (dato == "");
         Tarea tarea = buscarTareaPorPalabra(tareasPendiente, dato);
+        MostrarTarea(tarea);
 
     }
     Console.WriteLine("Desea Continuar: \n1)No \n2)Si");
@@ -78,26 +83,6 @@ void MostrarTarea(Tarea tarea)
     Console.WriteLine("id: "+tarea.TareaID);
     Console.WriteLine("Duracion: "+tarea.Duracion);
 }
-
-// void buscarPorPalabra(string dato){
-//     foreach (Tarea tarea in tareasPendiente){
-//         if (dato.CompareTo(tarea.Descripcion) ==  0){
-//             Console.WriteLine("------Tareas Pendientes------");
-//             Console.WriteLine("Descripcion: "+tarea.Descripcion);
-//             Console.WriteLine("id: "+tarea.TareaID);
-//             Console.WriteLine("Duracion: "+tarea.Duracion);
-//         }
-//     }
-
-//     foreach (Tarea tarea in tareasRealizada){
-//         if (dato.CompareTo(tarea.Descripcion) ==  0){
-//             Console.WriteLine("------Tareas Realizada------");
-//             Console.WriteLine("Descripcion: "+tarea.Descripcion);
-//             Console.WriteLine("id: "+tarea.TareaID);
-//             Console.WriteLine("Duracion: "+tarea.Duracion);
-//         }
-//     }
-// }
 
 void mostrarLista(List<Tarea> tareas, string MensajeCabecera)
 {
